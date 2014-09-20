@@ -1,0 +1,191 @@
+%Getting and Cleaning Data Course Project Codebook
+
+\documentclass{article}
+\usepackage{times}
+\usepackage{color}
+\usepackage{natbib}
+\bibpunct{(}{)}{,}{a}{,}{,}
+\usepackage{parskip}
+\newcommand{\BibTeX}{{\sc Bib}\TeX}
+\usepackage[document]{ragged2e}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{float}
+\restylefloat{table}
+\usepackage{graphicx}
+	%\graphicspath{{figures_MM_Shielding/}}
+\usepackage{sectsty}
+	\sectionfont{\large}
+\usepackage{fancyhdr}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage[usenames ,dvipsnames]{xcolor}
+
+	
+\setlength{\evensidemargin}{10mm}
+\setlength{\oddsidemargin}{10mm}
+\setlength{\textwidth}{150mm}
+\setlength{\parskip}{0.5em}
+
+\begin{document}
+\title{Getting and Cleaning Data Codebook}
+\author{Christian Hubbs}
+\date{\today}
+\maketitle
+
+\section{Experimental Design and Background}
+
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING\_UPSTAIRS, WALKING\_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70\% of the volunteers was selected for generating the training data and 30% the test data. 
+
+\section{Raw Data}
+
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50\% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. See 'features\_info.txt' for more details. The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ 
+and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. \par
+
+Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). \par
+
+Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). \par
+
+These signals were used to estimate variables of the feature vector for each pattern: '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+
+\subsection{Data Source}
+
+\href{http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones}{Dataset Description} \par
+
+\href{https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip}{Data Download} \par
+
+The dataset includes the following files:
+\begin{itemize}
+	\item Within the 'UCI HAR Dataset' folder:
+	\begin {itemize}
+		\item activity\_labels.txt
+		\item features.txt
+		\item features\_info.txt
+		\item README.txt		
+	\end{itemize}
+	\item Within the 'Train' sub-folder:
+	\begin{itemize}
+		\item subject\_train.txt
+		\item X\_train.txt
+		\item y\_train.txt
+		\item Inertial Signals (folder contents not used)
+	\end{itemize}
+	\item Within the 'Test' sub-folder:
+	\begin{itemize}
+		\item subject\_test.txt
+		\item X\_test.txt
+		\item y\_test.txt
+		\item Inertial Signals (folder contents not used)
+	\end{itemize}
+\end{itemize}
+\section{Processed Data}
+
+Ensure that dplyr is installed on your machine before running the associated script file. This can be done by utilizing the following code: \par
+
+install.packages(``dplyr'') \par
+
+Additionally, the R script was run on a machine utilizing Windows 7 and R 3.1.1. \par
+
+The mean and the standard deviation data was calculated for each of the measurements from the raw data. The raw data was then provided in a ``test'' and ``train'' data sets with the averaged values. The average and standard deviation values are of particular interest, thus they were extracted from the data set. The data was tidied and the renamed such that abbreviations were eliminated from the descriptions, non-alphanumeric characters were eliminated, and the titles were written in camel-case to make for easier reading. \par
+
+The activities for the 30 subjects are designated as follows:
+\begin{enumerate}
+	\item Walking
+	\item Walking Upstairs
+	\item Walking Downstairs
+	\item Sitting
+	\item Standing
+	\item Laying
+\end{enumerate}
+
+The labels are as follow:
+\begin{enumerate}
+	\item TimeBodyAccelerationMeanX
+	\item	TimeBodyAccelerationMeanY
+	\item	TimeBodyAccelerationMeanZ
+	\item	TimeBodyAccelerationStandardDevX
+	\item	TimeBodyAccelerationStandardDevY
+	\item	TimeBodyAccelerationStandardDevZ
+	\item	TimeGravityAccelerationMeanX
+	\item	TimeGravityAccelerationMeanY
+	\item	TimeGravityAccelerationMeanZ
+	\item	TimeGravityAccelerationStandardDevX
+	\item	TimeGravityAccelerationStandardDevY
+	\item	TimeGravityAccelerationStandardDevZ
+	\item	TimeBodyAccelerationJerkMeanX
+	\item	TimeBodyAccelerationJerkMeanY
+	\item	TimeBodyAccelerationJerkMeanZ
+	\item	TimeBodyAccelerationJerkStandardDevX
+	\item	TimeBodyAccelerationJerkStandardDevY
+	\item	TimeBodyAccelerationJerkStandardDevZ
+	\item	TimeBodyGyroMeanX
+	\item	TimeBodyGyroMeanY
+	\item	TimeBodyGyroMeanZ
+	\item	TimeBodyGyroStandardDevX
+	\item	TimeBodyGyroStandardDevY
+	\item	TimeBodyGyroStandardDevZ
+	\item	TimeBodyGyroJerkMeanX
+	\item	TimeBodyGyroJerkMeanY
+	\item	TimeBodyGyroJerkMeanZ
+	\item	TimeBodyGyroJerkStandardDevX
+	\item	TimeBodyGyroJerkStandardDevY
+	\item	TimeBodyGyroJerkStandardDevZ
+	\item	TimeBodyAccelerationMagMean
+	\item	TimeBodyAccelerationMagStandardDev
+	\item	TimeGravityAccelerationMagMean
+	\item	TimeGravityAccelerationMagStandardDev
+	\item	TimeBodyAccelerationJerkMagMean
+	\item	TimeBodyAccelerationJerkMagStandardDev
+	\item	TimeBodyGyroMagMean
+	\item	TimeBodyGyroMagStandardDev
+	\item	TimeBodyGyroJerkMagMean
+	\item	TimeBodyGyroJerkMagStandardDev
+	\item	FrequencyBodyAccelerationMeanX
+	\item	FrequencyBodyAccelerationMeanY
+	\item	FrequencyBodyAccelerationMeanZ
+	\item	FrequencyBodyAccelerationsTimedX
+	\item	FrequencyBodyAccelerationsTimedY
+	\item	FrequencyBodyAccelerationsTimedZ
+	\item	FrequencyBodyAccelerationMeanX
+	\item	FrequencyBodyAccelerationMeanY
+	\item	FrequencyBodyAccelerationMeanZ
+	\item	FrequencyBodyAccelerationJerkMeanX
+	\item	FrequencyBodyAccelerationJerkMeanY
+	\item	FrequencyBodyAccelerationJerkMeanZ
+	\item	FrequencyBodyAccelerationJerksTimedX
+	\item	FrequencyBodyAccelerationJerksTimedY
+	\item	FrequencyBodyAccelerationJerksTimedZ
+	\item	FrequencyBodyAccelerationJerkMeanX
+	\item	FrequencyBodyAccelerationJerkMeanY
+	\item	FrequencyBodyAccelerationJerkMeanZ
+	\item	FrequencyBodyGyroMeanX
+	\item	FrequencyBodyGyroMeanY
+	\item	FrequencyBodyGyroMeanZ
+	\item	FrequencyBodyGyrosTimedX
+	\item	FrequencyBodyGyrosTimedY
+	\item	FrequencyBodyGyrosTimedZ
+	\item	FrequencyBodyGyroMeanX
+	\item	FrequencyBodyGyroMeanY
+	\item	FrequencyBodyGyroMeanZ
+	\item	FrequencyBodyAccelerationMagMean
+	\item	FrequencyBodyAccelerationMagsTimed
+	\item	FrequencyBodyAccelerationMagMean
+	\item	FrequencyBodyAccelerationJerkMagMean
+	\item	FrequencyBodyAccelerationJerkMagsTimed
+	\item	FrequencyBodyAccelerationJerkMagMean
+	\item	FrequencyBodyGyroMagMean
+	\item	FrequencyBodyGyroMagsTimed
+	\item	FrequencyBodyGyroMagMean
+	\item	FrequencyBodyGyroJerkMagMean
+	\item	FrequencyBodyGyroJerkMagsTimed
+	\item	FrequencyBodyGyroJerkMagMean
+\end{enumerate}
+
+Each of these data values were then averaged for each subject according to the activity to produce the final table of processed data. 
+
+\end{document}
